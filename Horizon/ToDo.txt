@@ -1,0 +1,30 @@
+
+=========================================
+
+----- Initial Features To Implement -----
+
+=========================================
+
+[0]. Depth and Stencil Buffer
+[1]. Textures
+[2]. Drawable Entity
+[3]. Entity Renderer
+[4]. Mesh Loader
+[5]. Cube Maps
+[6]. Entity Component System
+[7]. Scene Renderer
+[8]. Lightings
+[9]. Material System
+
+==========================================
+
+----- Advanced Features To Implement -----
+
+==========================================
+
+[0]. Graphical User Interface
+[1]. Audio Engine
+[2]. Batch Renderer
+[3]. Multi-Threaded Resource Loading
+[4]. Physically Based Rendering
+

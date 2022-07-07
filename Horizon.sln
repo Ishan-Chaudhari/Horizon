@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Horizon", "Horizon\Horizon.vcxproj", "{37ADF51D-0D61-40A0-AF2A-09F34B60DF26}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestProject", "TestProject\TestProject.vcxproj", "{E11F4159-2E2D-4E99-9A78-6883A6449812}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37ADF51D-0D61-40A0-AF2A-09F34B60DF26}.Debug|x64.ActiveCfg = Debug|x64
+		{37ADF51D-0D61-40A0-AF2A-09F34B60DF26}.Debug|x64.Build.0 = Debug|x64
+		{37ADF51D-0D61-40A0-AF2A-09F34B60DF26}.Release|x64.ActiveCfg = Release|x64
+		{37ADF51D-0D61-40A0-AF2A-09F34B60DF26}.Release|x64.Build.0 = Release|x64
+		{E11F4159-2E2D-4E99-9A78-6883A6449812}.Debug|x64.ActiveCfg = Debug|x64
+		{E11F4159-2E2D-4E99-9A78-6883A6449812}.Debug|x64.Build.0 = Debug|x64
+		{E11F4159-2E2D-4E99-9A78-6883A6449812}.Release|x64.ActiveCfg = Release|x64
+		{E11F4159-2E2D-4E99-9A78-6883A6449812}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7B54797-DE58-4F54-BB05-CAB70FB5ACBB}
+	EndGlobalSection
+EndGlobal
