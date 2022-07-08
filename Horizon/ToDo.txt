@@ -5,7 +5,7 @@
 
 =========================================
 
-[0]. Depth and Stencil Buffer
+[0]. Depth and Stencil Buffer <---------- Done
 [1]. Textures
 [2]. Drawable Entity
 [3]. Entity Renderer

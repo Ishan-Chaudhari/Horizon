@@ -7,11 +7,13 @@ HzDevice DirectX11::pDevice;
 HzSwapChain DirectX11::pSwapChain;
 HzContext DirectX11::pContext;
 HzRenderTarget DirectX11::pRenderTarget;
+HzDepthStencilView DirectX11::pDepthStencilView;
 
 void DirectX11::Initialize()
 {
 	CreateDeviceAndSwapchain();
 	CreateRenderTargetView();
+	CreateDepthStencilView();
 
 	auto [x, y, t] = Application::GetWindowProps();
 	SetViewPort(0.f, 0.f, (float)x, (float)y, 0.f, 1.f);
@@ -21,13 +23,14 @@ void DirectX11::Initialize()
 void DirectX11::SwapBuffers()
 {
 	pSwapChain->Present(1, 0);
-	pContext->OMSetRenderTargets(1, pRenderTarget.GetAddressOf(), nullptr);
+	pContext->OMSetRenderTargets(1, pRenderTarget.GetAddressOf(), pDepthStencilView.Get());
 }
 
 void DirectX11::ClearColor(float r, float g, float b, float a)
 {
 	const float rgba[4] = { r,g,b,a };
 	pContext->ClearRenderTargetView(pRenderTarget.Get(), rgba);
+	pContext->ClearDepthStencilView(pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 }
 
 void DirectX11::SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
@@ -88,5 +91,44 @@ void DirectX11::CreateRenderTargetView()
 	HzResource pBackBuffer;
 	pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer);
 	pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pRenderTarget);
+
+}
+
+void DirectX11::CreateDepthStencilView()
+{
+	auto [x, y, t] = Application::GetWindowProps();
+
+	HzTexture2D pDepthBuffer;
+
+	D3D11_TEXTURE2D_DESC bdesc = {};
+	bdesc.Width = x;
+	bdesc.Height = y;
+	bdesc.BindFlags = 0;
+	bdesc.CPUAccessFlags = 0;
+	bdesc.Usage = D3D11_USAGE_DEFAULT;
+	bdesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	bdesc.Format = DXGI_FORMAT_D32_FLOAT;
+	bdesc.MipLevels = 1;
+	bdesc.ArraySize = 1;
+	bdesc.SampleDesc.Count = 1;
+	bdesc.SampleDesc.Quality = 0;
+
+	pDevice->CreateTexture2D(&bdesc, nullptr, &pDepthBuffer);
+
+	HzDepthStencilState pDSState;
+
+	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+	dsDesc.DepthEnable = true;
+	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+
+	pDevice->CreateDepthStencilState(&dsDesc, &pDSState);
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
+	dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
+	dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	dsvDesc.Texture2D.MipSlice = 0;
+
+	pDevice->CreateDepthStencilView(pDepthBuffer.Get(), &dsvDesc, &pDepthStencilView);
 
 }

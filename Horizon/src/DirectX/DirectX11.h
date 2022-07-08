@@ -14,6 +14,7 @@ private:
 	static HzSwapChain pSwapChain;
 	static HzContext pContext;
 	static HzRenderTarget pRenderTarget;
+	static HzDepthStencilView pDepthStencilView;
 public:
 	static HzDevice GetDevice() { return pDevice; }
 	static HzSwapChain GetSwapChain() { return pSwapChain; }
@@ -22,5 +23,6 @@ public:
 private:
 	static void CreateDeviceAndSwapchain();
 	static void CreateRenderTargetView();
+	static void CreateDepthStencilView();
 };
 

@@ -3,7 +3,7 @@
 #include "DirectX/Buffer.h"
 #include "Renderer/ShaderProgram.h"
 #include "Math/Camera.h"
-
+#include "DirectX/Texture.h"
 
 class Layer2 : public Layer
 {
@@ -16,6 +16,6 @@ private:
 	Buffer IndexBuffer;
 	HzMath::Matrix World = DirectX::XMMatrixIdentity();
 	Camera cam;
-
+	Texture tex;
 };
 

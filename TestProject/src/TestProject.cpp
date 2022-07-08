@@ -9,8 +9,8 @@ TestProject::TestProject()
 	SetAppData(1280, 720, "Horizon");
 
 	//PushLayer(new Layer1());
-	//PushLayer(new Layer2());
-	PushLayer(new Layer3());
+	PushLayer(new Layer2());
+	//PushLayer(new Layer3());
 }
 
 TestProject::~TestProject()

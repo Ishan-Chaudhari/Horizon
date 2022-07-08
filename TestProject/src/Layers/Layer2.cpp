@@ -3,20 +3,21 @@
 #include "Renderer/ShaderLib.h"
 #include "Core/Input.h"
 
+
 void Layer2::OnAttach()
 {
 	float vertices[] =
 	{
-		-0.5f,-0.5f, 0.f, 1.f,0.f,0.f,
-		-0.5f, 0.5f, 0.f, 0.f,1.f,0.f,
-		 0.5f, 0.5f, 0.f, 0.f,0.f,1.f,
-		 0.5f,-0.5f, 0.f, 0.f,0.f,1.f,
+		-0.5f,-0.5f, 0.f, 1.f,0.f,0.f, 0.f,0.f,
+		-0.5f, 0.5f, 0.f, 0.f,1.f,0.f, 0.f,1.f,
+		 0.5f, 0.5f, 0.f, 0.f,0.f,1.f, 1.f,1.f,
+		 0.5f,-0.5f, 0.f, 0.f,0.f,1.f, 1.f,0.f,
 	};
 	unsigned int indices[] = { 0,1,2,2,3,0 };
 
 	DirectX11::SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	vertexBuffer.Create(sizeof(vertices), vertices, sizeof(float) * 6, BufferType::HzVertexBuffer);
+	vertexBuffer.Create(sizeof(vertices), vertices, sizeof(float) * 8, BufferType::HzVertexBuffer);
 	vertexBuffer.Bind();
 
 	IndexBuffer.Create(sizeof(indices), indices, sizeof(unsigned int), BufferType::HzIndexBuffer);
@@ -32,9 +33,11 @@ void Layer2::OnAttach()
 	{
 		{"POSITION",0,LayoutFormat::HZ_VEC3,LayoutType::PER_VERTEX},
 		{"COLOR",3,LayoutFormat::HZ_VEC3,LayoutType::PER_VERTEX},
+		{"TEX",6,LayoutFormat::HZ_VEC2,LayoutType::PER_VERTEX},
 	};
-	ShaderLib::SetVertexLayout(layout,2,"BasicProgram");
+	ShaderLib::SetVertexLayout(layout,3,"BasicProgram");
 
+	tex.Create2D("res/Textures/dirt.png");
 }
 
 void Layer2::OnUpdate()
@@ -42,6 +45,8 @@ void Layer2::OnUpdate()
 	cam.Update();
 	cam.CalculateWvp(World);
 	
+	tex.Bind();
+
 	DirectX11::ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	DirectX11::GetContext()->DrawIndexed(IndexBuffer.GetCount(), 0, 0);
