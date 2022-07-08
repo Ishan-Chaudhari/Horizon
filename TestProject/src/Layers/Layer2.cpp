@@ -1,8 +1,8 @@
 #include "Layer2.h"
 #include "DirectX/DirectX11.h"
 #include "Renderer/ShaderLib.h"
+#include "Renderer/TextureLib.h"
 #include "Core/Input.h"
-
 
 void Layer2::OnAttach()
 {
@@ -36,16 +36,15 @@ void Layer2::OnAttach()
 		{"TEX",6,LayoutFormat::HZ_VEC2,LayoutType::PER_VERTEX},
 	};
 	ShaderLib::SetVertexLayout(layout,3,"BasicProgram");
-
-	tex.Create2D("res/Textures/dirt.png");
+	
+	TextureLib::Create2D("res/Textures/Cherno.png","Dirt");
+	TextureLib::Bind("Dirt");
 }
 
 void Layer2::OnUpdate()
 {
 	cam.Update();
 	cam.CalculateWvp(World);
-	
-	tex.Bind();
 
 	DirectX11::ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
@@ -54,4 +53,6 @@ void Layer2::OnUpdate()
 
 void Layer2::OnDetach()
 {
+	TextureLib::DestroyTexture("Dirt");
+	ShaderLib::DestroyProgram("BasicProgram");
 }

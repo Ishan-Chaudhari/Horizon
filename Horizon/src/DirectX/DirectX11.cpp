@@ -8,12 +8,16 @@ HzSwapChain DirectX11::pSwapChain;
 HzContext DirectX11::pContext;
 HzRenderTarget DirectX11::pRenderTarget;
 HzDepthStencilView DirectX11::pDepthStencilView;
+HzBlendState DirectX11::pBlendState;
+HzRasterizerState DirectX11::pCClockWcull;
+HzRasterizerState DirectX11::pClockWcull;
 
 void DirectX11::Initialize()
 {
 	CreateDeviceAndSwapchain();
 	CreateRenderTargetView();
 	CreateDepthStencilView();
+	CreateBlendState();
 
 	auto [x, y, t] = Application::GetWindowProps();
 	SetViewPort(0.f, 0.f, (float)x, (float)y, 0.f, 1.f);
@@ -130,5 +134,40 @@ void DirectX11::CreateDepthStencilView()
 	dsvDesc.Texture2D.MipSlice = 0;
 
 	pDevice->CreateDepthStencilView(pDepthBuffer.Get(), &dsvDesc, &pDepthStencilView);
+
+}
+
+void DirectX11::CreateBlendState()
+{
+	D3D11_RENDER_TARGET_BLEND_DESC rbtd;
+
+	rbtd.BlendEnable = true;
+	rbtd.SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	rbtd.DestBlend = D3D11_BLEND_BLEND_FACTOR;
+	rbtd.BlendOp = D3D11_BLEND_OP_ADD;
+	rbtd.SrcBlendAlpha = D3D11_BLEND_ONE;
+	rbtd.DestBlendAlpha = D3D11_BLEND_ZERO;
+	rbtd.BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	rbtd.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	D3D11_BLEND_DESC bdesc = {};
+	bdesc.AlphaToCoverageEnable = false;
+	bdesc.RenderTarget[0] = rbtd;
+	
+	pDevice->CreateBlendState(&bdesc, &pBlendState);
+
+	D3D11_RASTERIZER_DESC rdesc = {};
+	rdesc.FillMode = D3D11_FILL_SOLID;
+	rdesc.CullMode = D3D11_CULL_BACK;
+	rdesc.FrontCounterClockwise = true;
+	
+	pDevice->CreateRasterizerState(&rdesc, &pCClockWcull);
+	
+	rdesc.FrontCounterClockwise = false;
+	pDevice->CreateRasterizerState(&rdesc, &pClockWcull);
+
+	float blendfactor[4] = { 0.95f,0.95f,0.95f,1.f };
+	
+	pContext->OMSetBlendState(pBlendState.Get(), blendfactor, 0xffffffff);
 
 }

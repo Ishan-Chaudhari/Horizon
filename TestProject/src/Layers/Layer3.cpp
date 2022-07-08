@@ -63,4 +63,5 @@ void Layer3::OnUpdate()
 
 void Layer3::OnDetach()
 {
+	ShaderLib::DestroyProgram("BasicProgram");
 }

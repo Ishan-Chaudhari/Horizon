@@ -15,6 +15,9 @@ private:
 	static HzContext pContext;
 	static HzRenderTarget pRenderTarget;
 	static HzDepthStencilView pDepthStencilView;
+	static HzBlendState pBlendState;
+	static HzRasterizerState pClockWcull;
+	static HzRasterizerState pCClockWcull;
 public:
 	static HzDevice GetDevice() { return pDevice; }
 	static HzSwapChain GetSwapChain() { return pSwapChain; }
@@ -24,5 +27,6 @@ private:
 	static void CreateDeviceAndSwapchain();
 	static void CreateRenderTargetView();
 	static void CreateDepthStencilView();
+	static void CreateBlendState();
 };
 

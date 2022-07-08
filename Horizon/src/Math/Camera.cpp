@@ -35,7 +35,7 @@ void Camera::Update()
 void Camera::SetProjection()
 {
 	auto [x, y, t] = Application::GetWindowProps();
-	Projection = DirectX::XMMatrixPerspectiveFovLH(45.f * 3.14f / 180.f,(float) x / y, 0.5f, 1000.f);
+	Projection = DirectX::XMMatrixPerspectiveFovLH(45.f * 3.14f / 180.f, (float)x / y, 0.5f, 1000.f);
 }
 
 void Camera::CalculateWvp(HzMath::Matrix& WorldMatrix)

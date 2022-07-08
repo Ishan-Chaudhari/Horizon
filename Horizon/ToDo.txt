@@ -6,10 +6,11 @@
 =========================================
 
 [0]. Depth and Stencil Buffer <---------- Done
-[1]. Textures
-[2]. Drawable Entity
-[3]. Entity Renderer
-[4]. Mesh Loader
+[1]. Textures <-------------------------- Done
+[1.5]. Texture Library <----------------- Done
+[2]. Mesh Loader
+[3]. Drawable Entity
+[4]. Entity Renderer
 [5]. Cube Maps
 [6]. Entity Component System
 [7]. Scene Renderer

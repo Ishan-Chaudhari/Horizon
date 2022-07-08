@@ -11,7 +11,7 @@ void Texture::Create2D(const char* TexturePath)
 	tdesc.Height = height;
 	tdesc.MipLevels = 1;
 	tdesc.ArraySize = 1;
-	tdesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	tdesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	tdesc.SampleDesc.Count = 1;
 	tdesc.SampleDesc.Quality = 0;
 	tdesc.Usage = D3D11_USAGE_DEFAULT;
