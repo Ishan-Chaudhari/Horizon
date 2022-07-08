@@ -95,11 +95,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Layers\Layer3.cpp" />
     <ClCompile Include="src\Layers\Layer2.cpp" />
     <ClCompile Include="src\Layers\Layer1.cpp" />
     <ClCompile Include="src\TestProject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Layers\Layer3.h" />
     <ClInclude Include="src\Layers\Layer2.h" />
     <ClInclude Include="src\Layers\Layer1.h" />
     <ClInclude Include="src\TestProject.h" />

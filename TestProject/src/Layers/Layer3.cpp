@@ -1,18 +1,31 @@
-#include "Layer2.h"
+#include "Layer3.h"
 #include "DirectX/DirectX11.h"
 #include "Renderer/ShaderLib.h"
 #include "Core/Input.h"
 
-void Layer2::OnAttach()
+void Layer3::OnAttach()
 {
 	float vertices[] =
 	{
-		-0.5f,-0.5f, 0.f, 1.f,0.f,0.f,
-		-0.5f, 0.5f, 0.f, 0.f,1.f,0.f,
-		 0.5f, 0.5f, 0.f, 0.f,0.f,1.f,
-		 0.5f,-0.5f, 0.f, 0.f,0.f,1.f,
+		-0.5f,-0.5f,-0.5f, 1.f,0.f,0.f,
+		-0.5f, 0.5f,-0.5f, 0.f,1.f,0.f,
+		 0.5f, 0.5f,-0.5f, 0.f,0.f,1.f,
+		 0.5f,-0.5f,-0.5f, 1.f,1.f,1.f,
+
+		-0.5f,-0.5f, 0.5f, 1.f,0.f,0.f,
+		-0.5f, 0.5f, 0.5f, 0.f,1.f,0.f,
+		 0.5f, 0.5f, 0.5f, 0.f,0.f,1.f,
+		 0.5f,-0.5f, 0.5f, 1.f,1.f,1.f,
 	};
-	unsigned int indices[] = { 0,1,2,2,3,0 };
+	unsigned int indices[] = 
+	{
+		0,1,2 , 2,3,0,
+		3,2,6 , 6,7,3,
+		7,6,5 , 5,4,7,
+		4,5,1 , 1,0,4,
+		1,5,6 , 6,2,1,
+		4,0,3 , 3,7,4,
+	};
 
 	DirectX11::SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -22,6 +35,7 @@ void Layer2::OnAttach()
 	IndexBuffer.Create(sizeof(indices), indices, sizeof(unsigned int), BufferType::HzIndexBuffer);
 	IndexBuffer.Bind();
 
+	World = DirectX::XMMatrixIdentity();
 	cam.Create();
 	cam.CalculateWvp(World);
 
@@ -37,7 +51,7 @@ void Layer2::OnAttach()
 
 }
 
-void Layer2::OnUpdate()
+void Layer3::OnUpdate()
 {
 	cam.Update();
 	cam.CalculateWvp(World);
@@ -47,6 +61,6 @@ void Layer2::OnUpdate()
 	DirectX11::GetContext()->DrawIndexed(IndexBuffer.GetCount(), 0, 0);
 }
 
-void Layer2::OnDetach()
+void Layer3::OnDetach()
 {
 }

@@ -15,7 +15,6 @@ VS_OUTPUT main(float3 pos : POSITION, float3 col : COLOR)
 	VS_OUTPUT vo;
 	
 	vo.color = col;
-	//vo.position = float4(pos, 0.f, 1.f);
 	vo.position = mul(float4(pos, 1.f), Transform);
 	
 	return vo;

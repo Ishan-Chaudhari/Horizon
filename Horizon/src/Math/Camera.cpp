@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "Core/Application.h"
 #include "Core/Input.h"
+#include "Core/Logger.h"
 
 bool Camera::FirstMouse = true;
 double Camera::lastX;
@@ -9,9 +10,9 @@ double Camera::MouseSensitivity = 0.1;
 
 void Camera::Create()
 {
-	Position = DirectX::XMVectorSet(0.0f, 0.f, -3.f, 0.f);;
-	Front = DirectX::XMVectorSet(0.f, 0.f, 1.f, 0.f);;
-	Up = DirectX::XMVectorSet(0.f, 1.f, 0.f, 0.f);;
+	Position = DirectX::XMVectorSet(0.0f, 0.f, -3.f, 0.f);
+	Front = DirectX::XMVectorSet(0.f, 0.f, 1.f, 0.f);
+	Up = DirectX::XMVectorSet(0.f, 1.f, 0.f, 0.f);
 
 	View = DirectX::XMMatrixLookAtLH(Position, DirectX::XMVectorAdd(Position, Front), Up);
 	SetProjection();
@@ -34,12 +35,18 @@ void Camera::Update()
 void Camera::SetProjection()
 {
 	auto [x, y, t] = Application::GetWindowProps();
-	Projection = DirectX::XMMatrixPerspectiveFovLH(45.f * 3.14f / 180.f, x / y, 0.5f, 1000.f);
+	Projection = DirectX::XMMatrixPerspectiveFovLH(45.f * 3.14f / 180.f,(float) x / y, 0.5f, 1000.f);
 }
 
 void Camera::CalculateWvp(HzMath::Matrix& WorldMatrix)
 {
 	buf.Wvp = DirectX::XMMatrixTranspose(WorldMatrix * View * Projection);
+}
+
+void Camera::UpdateBuffer()
+{
+	WvpBuff.Bind();
+	WvpBuff.Update(&buf);
 }
 
 HzMath::Matrix Camera::GetViewProjection()
@@ -99,9 +106,4 @@ void Camera::MouseInput()
 
 }
 
-void Camera::UpdateBuffer()
-{
-	WvpBuff.Bind();
-	WvpBuff.Update(&buf);
-}
 
