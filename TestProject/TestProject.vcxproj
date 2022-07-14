@@ -55,7 +55,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)Horizon/src;$(SolutionDir)Dependencies/Assimp/include;</AdditionalIncludeDirectories>
@@ -67,7 +67,7 @@
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);assimp.lib</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)res/Shaders/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)res/Shaders/cso/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -76,7 +76,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)Horizon/src;$(SolutionDir)Dependencies\Assimp\include</AdditionalIncludeDirectories>
@@ -90,7 +90,7 @@
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);assimp.lib</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)res/Shaders/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)res/Shaders/cso/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -99,23 +99,27 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Layers\Layer3.cpp" />
-    <ClCompile Include="src\Layers\Layer2.cpp" />
-    <ClCompile Include="src\Layers\Layer1.cpp" />
+    <ClCompile Include="src\Layers\Layer6.cpp" />
     <ClCompile Include="src\TestProject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Layers\Layer3.h" />
-    <ClInclude Include="src\Layers\Layer2.h" />
-    <ClInclude Include="src\Layers\Layer1.h" />
+    <ClInclude Include="src\Layers\Layer6.h" />
     <ClInclude Include="src\TestProject.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="res\Shaders\PixelShader.hlsl">
+    <FxCompile Include="res\Shaders\hlsl\PhongPixel.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="res\Shaders\VertexShader.hlsl">
+    <FxCompile Include="res\Shaders\hlsl\PhongVertex.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="res\Shaders\hlsl\PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="res\Shaders\hlsl\VertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>

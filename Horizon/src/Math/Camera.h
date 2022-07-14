@@ -1,6 +1,6 @@
 #pragma once
 #include "DxMath.h"
-#include "DirectX/Buffer.h"
+#include "DirectX/ConstantBuffer.h"
 #include <utility>
 
 class Camera
@@ -8,21 +8,31 @@ class Camera
 	struct WvpBuffer
 	{
 		HzMath::Matrix Wvp;
+		HzMath::Matrix World;
+	};
+	struct CamBuffer
+	{
+		HzMath::Vector3 Pos;
+		float null = 0.f;
 	};
 public:
 	void Create();
 	void Update();
+	HzMath::Vector3 GetCameraPosition();
 	void SetProjection();
-	void CalculateWvp(HzMath::Matrix& WorldMatrix);
+	void SetWvpBuffer(HzMath::Matrix& WorldMatrix);
 	HzMath::Matrix GetViewProjection();
 private:
+	HzMath::Vector3 CamPosition;
 	HzMath::Matrix Projection;
 	HzMath::Matrix View;
 	HzMath::Vector Position;
 	HzMath::Vector Front;
 	HzMath::Vector Up;
-	Buffer WvpBuff;
+	ConstantBuffer WvpBuff;
+	ConstantBuffer CamBuff;
 	WvpBuffer buf;
+	CamBuffer cbuf;
 private:
 	void KeyBoardInput();
 	void MouseInput();

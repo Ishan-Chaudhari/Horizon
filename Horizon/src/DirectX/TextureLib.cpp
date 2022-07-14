@@ -1,9 +1,13 @@
-#include "Texture.h"
+#include "TextureLib.h"
 #include "stb_image.h"
 #include "DirectX11.h"
+#include <iostream>
 
-void Texture::Create2D(const char* TexturePath)
+static int a = 0;
+
+void TextureLib::Texture::Create2D(const char* TexturePath)
 {
+	stbi_set_flip_vertically_on_load(1);
 	bufferData = stbi_load(TexturePath, &width, &height, &Channels, 4);
 
 	D3D11_TEXTURE2D_DESC tdesc = {};
@@ -45,8 +49,29 @@ void Texture::Create2D(const char* TexturePath)
 	stbi_image_free(bufferData);
 }
 
-void Texture::Bind()
+void TextureLib::Texture::Bind()
 {
 	DirectX11::GetContext()->PSSetShaderResources(0, 1, pShaderResV.GetAddressOf());
 	DirectX11::GetContext()->PSSetSamplers(0, 1, pSampler.GetAddressOf());
+}
+
+
+std::unordered_map<const char*, TextureLib::Texture*> TextureLib::TexLib;
+
+void TextureLib::Create2D(const char* TexturePath, const char* TextureName)
+{
+	Texture* tex = new Texture();
+	tex->Create2D(TexturePath);
+	TexLib[TextureName] = tex;
+}
+
+void TextureLib::Bind(const char* TextureName)
+{
+	TexLib[TextureName]->Bind();
+}
+
+void TextureLib::DestroyTexture(const char* TextureName)
+{
+	delete TexLib[TextureName];
+	TexLib.erase(TextureName);
 }

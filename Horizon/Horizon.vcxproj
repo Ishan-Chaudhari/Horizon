@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -55,7 +55,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)Dependencies\Assimp\include</AdditionalIncludeDirectories>
@@ -77,7 +77,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)Dependencies\Assimp\include</AdditionalIncludeDirectories>
@@ -96,11 +96,14 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\DirectX\ConstantBuffer.h" />
+    <ClInclude Include="src\Scene\Material.h" />
+    <ClInclude Include="src\Scene\Light.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\DirectX\ModelLib.h" />
     <ClInclude Include="src\DirectX\stb_image.h" />
-    <ClInclude Include="src\Renderer\ShaderLib.h" />
-    <ClInclude Include="src\Renderer\ShaderProgram.h" />
+    <ClInclude Include="src\DirectX\ShaderLib.h" />
     <ClInclude Include="src\Math\Camera.h" />
-    <ClInclude Include="src\DirectX\Shader.h" />
     <ClInclude Include="src\DirectX\Buffer.h" />
     <ClInclude Include="src\Math\DxMath.h" />
     <ClInclude Include="src\Core\LayerStack.h" />
@@ -112,15 +115,18 @@
     <ClInclude Include="src\DirectX\Resource.h" />
     <ClInclude Include="src\EntryPoint.h" />
     <ClInclude Include="src\Core\Window.h" />
-    <ClInclude Include="src\DirectX\Texture.h" />
-    <ClInclude Include="src\Renderer\TextureLib.h" />
+    <ClInclude Include="src\DirectX\TextureLib.h" />
+    <ClInclude Include="src\Scene\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\DirectX\ConstantBuffer.cpp" />
+    <ClCompile Include="src\Scene\Material.cpp" />
+    <ClCompile Include="src\Scene\Light.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\DirectX\ModelLib.cpp" />
     <ClCompile Include="src\DirectX\stb_image.cpp" />
-    <ClCompile Include="src\Renderer\ShaderLib.cpp" />
-    <ClCompile Include="src\Renderer\ShaderProgram.cpp" />
+    <ClCompile Include="src\DirectX\ShaderLib.cpp" />
     <ClCompile Include="src\Math\Camera.cpp" />
-    <ClCompile Include="src\DirectX\Shader.cpp" />
     <ClCompile Include="src\DirectX\Buffer.cpp" />
     <ClCompile Include="src\Core\LayerStack.cpp" />
     <ClCompile Include="src\Core\Layer.h" />
@@ -128,8 +134,8 @@
     <ClCompile Include="src\Core\Input.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
-    <ClCompile Include="src\DirectX\Texture.cpp" />
-    <ClCompile Include="src\Renderer\TextureLib.cpp" />
+    <ClCompile Include="src\DirectX\TextureLib.cpp" />
+    <ClCompile Include="src\Scene\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

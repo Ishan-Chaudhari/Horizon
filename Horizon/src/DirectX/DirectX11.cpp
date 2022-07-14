@@ -2,6 +2,7 @@
 #include "Core/Application.h"
 #include "Core/Logger.h"
 #pragma comment(lib,"d3d11.lib")
+#include <comdef.h>
 
 HzDevice DirectX11::pDevice;
 HzSwapChain DirectX11::pSwapChain;
@@ -40,6 +41,17 @@ void DirectX11::ClearColor(float r, float g, float b, float a)
 void DirectX11::SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
 {
 	pContext->IASetPrimitiveTopology(topology);
+}
+
+void DirectX11::EnableBlendState()
+{
+	float blendfactor[4] = { 0.95f,0.95f,0.95f,1.f };
+	pContext->OMSetBlendState(pBlendState.Get(), blendfactor, 0xffffffff);
+}
+
+void DirectX11::DisableBlendState()
+{
+	pContext->OMSetBlendState(nullptr, nullptr, 0xffffffff);
 }
 
 void DirectX11::SetViewPort(float x, float y, float width, float height, float zMin, float zMax)
@@ -165,9 +177,4 @@ void DirectX11::CreateBlendState()
 	
 	rdesc.FrontCounterClockwise = false;
 	pDevice->CreateRasterizerState(&rdesc, &pClockWcull);
-
-	float blendfactor[4] = { 0.95f,0.95f,0.95f,1.f };
-	
-	pContext->OMSetBlendState(pBlendState.Get(), blendfactor, 0xffffffff);
-
 }

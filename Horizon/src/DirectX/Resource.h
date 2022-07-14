@@ -32,8 +32,6 @@ enum class BufferType
 {
 	HzVertexBuffer = D3D11_BIND_VERTEX_BUFFER,
 	HzIndexBuffer = D3D11_BIND_INDEX_BUFFER,
-	HzPixelConstantBuffer,
-	HzVertexConstantBuffer,
 };
 
 enum class ShaderType

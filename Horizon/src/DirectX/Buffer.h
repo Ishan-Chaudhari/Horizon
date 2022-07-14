@@ -5,7 +5,7 @@ class Buffer
 {
 public:
 	void Create(int bufferSize, void* bufferData, int stride, BufferType type);
-	void Bind();
+	void Bind(unsigned int cbSlot = 0);
 	void Update(void* bufferData);
 	inline UINT GetCount() { return Count; }
 private:

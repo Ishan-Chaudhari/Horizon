@@ -18,13 +18,7 @@
     <ClCompile Include="src\TestProject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Layers\Layer1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Layers\Layer2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Layers\Layer3.cpp">
+    <ClCompile Include="src\Layers\Layer6.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,18 +26,14 @@
     <ClInclude Include="src\TestProject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Layers\Layer1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Layers\Layer2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Layers\Layer3.h">
+    <ClInclude Include="src\Layers\Layer6.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="res\Shaders\VertexShader.hlsl" />
-    <FxCompile Include="res\Shaders\PixelShader.hlsl" />
+    <FxCompile Include="res\Shaders\hlsl\VertexShader.hlsl" />
+    <FxCompile Include="res\Shaders\hlsl\PixelShader.hlsl" />
+    <FxCompile Include="res\Shaders\hlsl\PhongVertex.hlsl" />
+    <FxCompile Include="res\Shaders\hlsl\PhongPixel.hlsl" />
   </ItemGroup>
 </Project>

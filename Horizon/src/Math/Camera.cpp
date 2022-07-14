@@ -16,20 +16,31 @@ void Camera::Create()
 
 	View = DirectX::XMMatrixLookAtLH(Position, DirectX::XMVectorAdd(Position, Front), Up);
 	SetProjection();
+	
+	DirectX::XMStoreFloat3(&CamPosition, Position);
 
-	WvpBuff.Create(sizeof(buf), &buf, 0, BufferType::HzVertexConstantBuffer);
-	WvpBuff.Bind();
+	WvpBuff.Create(sizeof(buf), &buf);
+	WvpBuff.BindtoVertexShader(0);
+
+	CamBuff.Create(sizeof(cbuf), &cbuf);
+	CamBuff.BindtoPixelShader(2);
 
 	yaw = 90.f;
 	pitch = 0.f;
+
+
 }
 
 void Camera::Update()
 {
-	UpdateBuffer();
 	KeyBoardInput();
 	MouseInput();
 	View = DirectX::XMMatrixLookAtLH(Position, DirectX::XMVectorAdd(Position, Front), Up);
+}
+
+HzMath::Vector3 Camera::GetCameraPosition()
+{
+	return CamPosition;
 }
 
 void Camera::SetProjection()
@@ -38,15 +49,17 @@ void Camera::SetProjection()
 	Projection = DirectX::XMMatrixPerspectiveFovLH(45.f * 3.14f / 180.f, (float)x / y, 0.5f, 1000.f);
 }
 
-void Camera::CalculateWvp(HzMath::Matrix& WorldMatrix)
+void Camera::SetWvpBuffer(HzMath::Matrix& WorldMatrix)
 {
+	buf.World = WorldMatrix;
 	buf.Wvp = DirectX::XMMatrixTranspose(WorldMatrix * View * Projection);
+	UpdateBuffer();
 }
 
 void Camera::UpdateBuffer()
 {
-	WvpBuff.Bind();
 	WvpBuff.Update(&buf);
+	CamBuff.Update(&cbuf);
 }
 
 HzMath::Matrix Camera::GetViewProjection()
@@ -56,18 +69,39 @@ HzMath::Matrix Camera::GetViewProjection()
 
 void Camera::KeyBoardInput()
 {
+	float CameraSpeed = 0.05f;
+
 	if (Input::IsKeyPressed(VK_KEY_W))
-		Position = DirectX::XMVectorAdd(Position, DirectX::XMVectorScale(Front, 0.01f));
+	{
+		Position = DirectX::XMVectorAdd(Position, DirectX::XMVectorScale(Front, CameraSpeed));
+		DirectX::XMStoreFloat3(&CamPosition, Position);
+	}
 	if (Input::IsKeyPressed(VK_KEY_S))
-		Position = DirectX::XMVectorSubtract(Position, DirectX::XMVectorScale(Front, 0.01f));
+	{
+		Position = DirectX::XMVectorSubtract(Position, DirectX::XMVectorScale(Front, CameraSpeed));
+		DirectX::XMStoreFloat3(&CamPosition, Position);
+	}
 	if (Input::IsKeyPressed(VK_KEY_A))
-		Position = DirectX::XMVectorAdd(Position, DirectX::XMVectorScale(DirectX::XMVector3Cross(Front, Up), 0.01f));
+	{
+		Position = DirectX::XMVectorAdd(Position, DirectX::XMVectorScale(DirectX::XMVector3Cross(Front, Up), CameraSpeed));
+		DirectX::XMStoreFloat3(&CamPosition, Position);
+	}
 	if (Input::IsKeyPressed(VK_KEY_D))
-		Position = DirectX::XMVectorSubtract(Position, DirectX::XMVectorScale(DirectX::XMVector3Cross(Front, Up), 0.01f));
+	{
+		Position = DirectX::XMVectorSubtract(Position, DirectX::XMVectorScale(DirectX::XMVector3Cross(Front, Up), CameraSpeed));
+		DirectX::XMStoreFloat3(&CamPosition, Position);
+	}
 	if (Input::IsKeyPressed(VK_KEY_Q))
-		Position = DirectX::XMVectorAdd(Position, DirectX::XMVectorScale(Up, 0.01f));
+	{
+		Position = DirectX::XMVectorAdd(Position, DirectX::XMVectorScale(Up, CameraSpeed));
+		DirectX::XMStoreFloat3(&CamPosition, Position);
+	}
 	if (Input::IsKeyPressed(VK_KEY_E))
-		Position = DirectX::XMVectorSubtract(Position, DirectX::XMVectorScale(Up, 0.01f));
+	{
+		Position = DirectX::XMVectorSubtract(Position, DirectX::XMVectorScale(Up, CameraSpeed));
+		DirectX::XMStoreFloat3(&CamPosition, Position);
+	}
+	
 }
 
 void Camera::MouseInput()
@@ -97,9 +131,9 @@ void Camera::MouseInput()
 		if (pitch > 89.f)pitch = 89.f;
 		if (pitch < -89.f)pitch = -89.f;
 
-		TempVector.x = cos(yaw * 0.017445) * cos(pitch * 0.017445);
-		TempVector.y = sin(pitch * 0.017445);
-		TempVector.z = sin(yaw * 0.017445) * cos(pitch * 0.017445);
+		TempVector.x = (float)(cos(yaw * 0.017445) * cos(pitch * 0.017445));
+		TempVector.y = (float)(sin(pitch * 0.017445));
+		TempVector.z = (float)(sin(yaw * 0.017445) * cos(pitch * 0.017445));
 
 		Front = DirectX::XMVector3Normalize(DirectX::XMLoadFloat3(&TempVector));
 	}

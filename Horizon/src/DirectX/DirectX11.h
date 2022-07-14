@@ -8,6 +8,8 @@ public:
 	static void SwapBuffers();
 	static void ClearColor(float r, float g, float b, float a);
 	static void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
+	static void EnableBlendState();
+	static void DisableBlendState();
 	static void SetViewPort(float x, float y, float width, float height, float zMin, float zMax);
 private:
 	static HzDevice pDevice;

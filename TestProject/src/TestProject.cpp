@@ -1,17 +1,13 @@
 #include "TestProject.h"
 #include "EntryPoint.h"
-#include "Layers/Layer1.h"
-#include "Layers/Layer2.h"
-#include "Layers/Layer3.h"
+#include "Layers/Layer6.h"
 
 TestProject::TestProject()
 {
 	SetAppData(1280, 720, "Horizon");
 
-	//PushLayer(new Layer1());
-	PushLayer(new Layer2());
-	//PushLayer(new Layer3());
-
+	PushLayer(new Layer6());
+	
 }
 
 TestProject::~TestProject()
